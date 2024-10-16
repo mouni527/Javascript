@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: hsl(12, 83%, 50%);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #17cf48;
+        }
+    </style>
+    <script>
+        function Loan(loanAmount, interestRate, loanTerm) {
+            this.loanAmount = loanAmount;
+            this.interestRate = interestRate; // Annual interest rate
+            this.loanTerm = loanTerm; // Term in months
+            this.emisPaid = 0; // Initial EMIs paid
+        }
+
+        Loan.prototype.calculateMonthlyPayment = function() {
+            const monthlyRate = this.interestRate / 100 / 12; // Monthly interest rate
+            const emi = (this.loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -this.loanTerm));
+            return emi.toFixed(2); // Return monthly payment rounded to 2 decimal places
+        };
+
+        Loan.prototype.checkLoanStatus = function() {
+            const totalAmount = this.loanAmount + (this.loanAmount * this.interestRate / 100); // Total amount to be paid
+            const totalPaid = this.calculateMonthlyPayment() * this.emisPaid; // Total amount paid so far
+            const remainingAmount = totalAmount - totalPaid; // Remaining amount
+            return {
+                totalPaid: totalPaid.toFixed(2),
+                remainingAmount: remainingAmount.toFixed(2),
+                emisRemaining: this.loanTerm - this.emisPaid
+            };
+        };
+
+        let loan;
+
+        function createLoan() {
+            const loanAmount = parseFloat(document.getElementById("loanAmount").value);
+            const interestRate = parseFloat(document.getElementById("interestRate").value);
+            const loanTerm = parseInt(document.getElementById("loanTerm").value);
+            loan = new Loan(loanAmount, interestRate, loanTerm);
+            alert("Loan created successfully!");
+        }
+
+        function calculateEMI() {
+            const emi = loan.calculateMonthlyPayment();
+            alert(`Monthly Payment (EMI): $${emi}`);
+        }
+
+        function checkStatus() {
+            const status = loan.checkLoanStatus();
+            alert(`Total Paid: $${status.totalPaid}\nRemaining Amount: $${status.remainingAmount}\nEMIs Remaining: ${status.emisRemaining}`);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Loan Calculator</h2>
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" required>
+        <label for="interestRate">Interest Rate (%):</label>
+        <input type="number" id="interestRate" required>
+        <label for="loanTerm">Loan Term (months):</label>
+        <input type="number" id="loanTerm" required>
+        <button onclick="createLoan()">Create Loan</button>
+
+        <button onclick="calculateEMI()">Calculate Monthly Payment (EMI)</button>
+        <button onclick="checkStatus()">Check Loan Status</button>
+    </div>
+</body>
+</html>

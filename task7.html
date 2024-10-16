@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Eligibility Check</title>
+    <style>
+        body {
+          background-color: chartreuse;
+            padding: 20px;
+        }
+        h2{
+            text-align: center;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 50;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+   
+    <script>
+      
+        function checkScholarship() {
+            
+            var gpa = parseFloat(document.getElementById("gpa").value);
+
+            if (gpa >= 7.5) {
+                alert("good You are eligible for a scholarship.");
+            } else {
+                alert("Sorry not bad , you are not eligible for a scholarship.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Scholarship Eligibility Check</h2>
+    
+    
+    <label for="gpa">Enter gpa</label>
+    <input type="number" id="gpa" step="0.1" min="0" max="10"><br><br>
+    
+    
+    <button onclick="checkScholarship()">Check Eligibility</button>      
+   
+    
+</body>
+</html>

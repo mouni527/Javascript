@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: blue;
+        }
+        .loan-form {
+            margin-bottom: 20px;
+        }
+        .loan-result {
+            margin-top: 20px;
+        }
+        label{
+            color:black;
+        }
+    </style>
+</head>
+<body>
+
+    <center><h1>Loan Manager</h1></center>
+
+    <div class="loan-form">
+        <center>
+        <h2>Apply for a Loan</h2>
+        <form id="loanForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" required><br><br>
+
+            <label for="income">Monthly Income (in USD):</label><br>
+            <input type="number" id="income" required><br><br>
+
+            <label for="balance">Account Balance (in USD):</label><br>
+            <input type="number" id="balance" required><br><br>
+
+            <button type="submit">Apply for Loan</button>
+        </form>
+        </center>
+    </div>
+
+    <div class="loan-result" id="loanResult"></div>
+
+    <script>
+        // Array to store loan applications
+        var loans = [];
+
+        // Function to apply for a loan
+        function applyLoan(name, income, balance) {
+            var loan = {
+                name: name,
+                income: income,
+                balance: balance,
+                status: 'Pending'
+            };
+            loans.push(loan);
+            return loan;
+        }
+
+        // Function to approve or reject a loan based on criteria
+        function approveOrRejectLoan(loan) {
+            var minimumIncome = 30000;
+            var minimumBalance = 10000;
+
+            if (loan.income >= minimumIncome && loan.balance >= minimumBalance) {
+                loan.status = 'Approved';
+            } else {
+                loan.status = 'Rejected';
+            }
+        }
+
+        // Function to display loans and their statuses
+        function displayLoans() {
+            var resultDiv = document.getElementById('loanResult');
+            resultDiv.innerHTML = ''; // Clear previous results
+
+            loans.forEach(function(loan, index) {
+                resultDiv.innerHTML += `
+                    <div>
+                        <strong>Loan ${index + 1}</strong><br>
+                        Name: ${loan.name}<br>
+                        Income: $${loan.income}<br>
+                        Balance: $${loan.balance}<br>
+                        Status: ${loan.status}<br><br>
+                    </div>
+                `;
+            });
+        }
+
+      
+        document.getElementById('loanForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            
+            var name = document.getElementById('name').value;
+            var income = parseFloat(document.getElementById('income').value);
+            var balance = parseFloat(document.getElementById('balance').value);
+
+         
+            var loan = applyLoan(name, income, balance);
+
+            
+            approveOrRejectLoan(loan);
+
+           
+            displayLoans();
+
+           
+            document.getElementById('loanForm').reset();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selling Price Calculator</title>
+    <style>
+        body {
+          background-color: chartreuse;
+            margin: 0;
+            padding: 20px;
+        }
+        h1{
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: rgb(25, 148, 72);
+            padding: 20px;
+            border-radius: 8px;
+            
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function actualPrice(costPrice) {
+            const discount = 0.20; // take  20%  as discount because given in question so i taken
+            const discountAmount = costPrice * discountRate; // Calculate discount amount
+            const sellingPrice = costPrice - discountAmount; // Calculate selling price
+
+            // Display the selling price
+            alert("Selling Price: $" + sellingPrice.toFixed(2));
+        }
+
+        function onCalculate() {
+            const costPrice = parseFloat(document.getElementById("costPrice").value); // Get cost price from input
+            actualPrice(costPrice); // Call the actualPrice function in top what declare
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Selling Price Calculator</h1>
+        <label for="costPrice">Enter Cost Price:</label>
+        <input type="number" id="costPrice" required>
+        <button onclick="onCalculate()">Calculate Selling Price</button>
+    </div>
+</body>
+</html>

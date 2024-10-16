@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            
+        }
+        label {
+           margin-bottom: 2px;
+            color: #555;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #d21da5;
+           
+            border-radius: 4px;
+
+            
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function BankAccount(accountNumber, accountHolderName) {
+            this.accountNumber = accountNumber;
+            this.accountHolderName = accountHolderName;
+            this.balance = 0; // Initial balance is zero
+        }
+
+        BankAccount.prototype.deposit = function(amount) {
+            this.balance += amount;
+            alert(`Deposited: $${amount}\nNew Balance: $${this.balance}`);
+        };
+
+        BankAccount.prototype.withdraw = function(amount) {
+            if (amount <= this.balance) {
+                this.balance -= amount;
+                alert(`Withdrew: $${amount}\nNew Balance: $${this.balance}`);
+            } else {
+                alert("Insufficient funds for withdrawal.");
+            }
+        };
+
+        BankAccount.prototype.checkBalance = function() {
+            alert(`Current Balance: $${this.balance}`);
+        };
+
+        let account;
+
+        function createAccount() {
+            const accountNumber = document.getElementById("accountNumber").value;
+            const accountHolderName = document.getElementById("accountHolderName").value;
+            account = new BankAccount(accountNumber, accountHolderName);
+            alert("Account created successfully!");
+        }
+
+        function deposit() {
+            const amount = parseFloat(document.getElementById("amount").value);
+            account.deposit(amount);
+        }
+
+        function withdraw() {
+            const amount = parseFloat(document.getElementById("amount").value);
+            account.withdraw(amount);
+        }
+
+        function checkBalance() {
+            account.checkBalance();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Bank Account</h2>
+        <label for="accountNumber">Account Number:</label>
+        <input type="text" id="accountNumber" required>
+        <label for="accountHolderName">Account Holder Name:</label>
+        <input type="text" id="accountHolderName" required>
+        <button onclick="createAccount()">Create Account</button>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" required>
+        <button onclick="deposit()">Deposit</button>
+        <button onclick="withdraw()">Withdraw</button>
+        <button onclick="checkBalance()">Check Balance</button>
+    </div>
+</body>
+</html>

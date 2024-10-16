@@ -1,0 +1,79 @@
+body{
+    font-family:'Courier New', Courier, monospace;
+    background-color: darkorchid;
+}
+h1{
+    text-align: center;
+    color: deeppink;
+}
+form{
+    /*width:600px;
+    padding:20px;
+    background-color: purple;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);*/
+
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input [type="text"],
+input [type="password"],
+select, 
+textarea {
+   /* width:100%;
+    padding:10px;
+    border-radius: 1px solid black;
+    font-size: 10px;*/
+    max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+select{
+    /*width:100%;
+    padding:9px;
+    border-radius: 1px solid orange;
+    font-size: 10px;
+    background-color:yellow ;
+    */
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+}
+textarea{
+    resize:vertical;
+}
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"]{
+    background-color: blue;
+    color:red;
+    border-radius: 5px;
+    cursor:auto;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="checkbox"]:hover{
+    background-color:yellow;
+
+}
+.error-message{
+    color:chartreuse;
+    font-size: 12px;
+}

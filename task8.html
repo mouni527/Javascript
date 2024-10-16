@@ -1,0 +1,59 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Series in Reverse</title>
+    <style>
+        body{
+            background-color: darkviolet;
+
+        }
+        .container{
+            margin-top:  ;
+        }
+    </style>
+    <script>
+        
+        function generateFibonacci(n) {
+            let fib = [0, 1];  // start the series with 0 and 1
+            
+           
+            for (let i = 2; i < n; i++) {
+                fib.push(fib[i - 1] + fib[i - 2]);
+            }
+            return fib;
+        }
+
+        // Function to display the Fibonacci series in reverse order
+        function Reverse() {
+            // Get the number of terms from the input field
+            const n = parseInt(document.getElementById("number").value);
+            
+            if (isNaN(n) || n <= 0) {
+                alert("Please enter positive number");
+                return;
+            }
+
+            // Generate the Fibonacci series
+            const fib = generateFibonacci(n);
+            
+            // Reverse the series
+            const reversed= fib.reverse();
+            
+            // Display the reversed Fibonacci series
+            document.getElementById("result").innerHTML = "Fibonacci Series in Reverse order" + reversed;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h2> display Fibonacci Series in Reverse Order</h2>
+
+
+    <label for="number">enter a number:</label>
+    <input type="number" id="number"><br>   
+    <button onclick="Reverse()">Display in Reverse</button>
+    </div>
+
+    <p id="result"></p>
