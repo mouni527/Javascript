@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp and Time Ago</title>
+</head>
+<body>
+
+    <h3>Timestamp in dd/mm/yyyy format:</h3>
+    <p id="timestamp-ddmmyyyy"></p>
+
+    <h3>Timestamp in hh.mm.ss format:</h3>
+    <p id="timestamp-hhmmss"></p>
+
+    <h3>Time Ago (like social media timestamps):</h3>
+    <p id="time-ago"></p>
+
+    <script>
+       
+        function getDDMMYYYY() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0'); 
+            const year = now.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function getHHMMSS() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${hours}.${minutes}.${seconds}`;
+        }
+
+        function timeAgo(pastDate) {
+            const now = new Date();
+            const secondsAgo = Math.floor((now - pastDate) / 1000);
+            const minutesAgo = Math.floor(secondsAgo / 60);
+            const hoursAgo = Math.floor(minutesAgo / 60);
+            const daysAgo = Math.floor(hoursAgo / 24);
+            const monthsAgo = Math.floor(daysAgo / 30); 
+            const yearsAgo = Math.floor(monthsAgo / 12);
+
+            if (secondsAgo < 60) {
+                return `${secondsAgo} seconds ago`;
+            } else if (minutesAgo < 60) {
+                return `${minutesAgo} minutes ago`;
+            } else if (hoursAgo < 24) {
+                return `${hoursAgo} hours ago`;
+            } else if (daysAgo < 30) {
+                return `${daysAgo} days ago`;
+            } else if (monthsAgo < 12) {
+                return `${monthsAgo} months ago`;
+            } else {
+                return `${yearsAgo} years ago`;
+            }
+        }
+
+
+        document.getElementById("timestamp-ddmmyyyy").textContent = getDDMMYYYY();
+        document.getElementById("timestamp-hhmmss").textContent = getHHMMSS();
+
+      
+        const pastDate = new Date();
+        pastDate.setDate(pastDate.getDate() - 40); // Subtracting  days from current date
+        document.getElementById("time-ago").textContent = timeAgo(pastDate);
+    </script>
+</body>
+</html>

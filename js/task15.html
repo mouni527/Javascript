@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+
+        .reset-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3897f0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reset-container">
+        <h2>Reset Password</h2>
+        <form id="resetForm">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password">
+
+            <div id="errorMessage" class="error"></div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('resetForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Function to display error messages
+        function displayError(message) {
+            errorMessage.textContent = message;
+        }
+
+        
+        form.addEventListener('copy', function(event) {
+            if (event.target.type === 'password') {
+                event.preventDefault();
+                displayError('Copy is restricted');
+            }
+        });
+
+        form.addEventListener('paste', function(event) {
+            if (event.target.type === 'password') {
+                event.preventDefault();
+                displayError('Paste is restricted');
+            }
+        });
+
+        // Disable right-click globally on the document
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            displayError('Right-click is disabled');
+        });
+
+        // Form submission validation
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Clear any existing error message
+            displayError('');
+
+            if (newPassword !== confirmPassword) {
+                displayError('Passwords do not match!');
+            } else {
+                alert('Password reset successful!');
+            }
+        });
+
+        // Clear error message when the user starts typing in any password field
+        form.addEventListener('input', function(event) {
+            if (event.target.type === 'password') {
+                displayError('');
+            }
+        });
+    </script>
+
+</body>
+</html>

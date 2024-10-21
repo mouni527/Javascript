@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login Form</title>
+    <style>
+        body {
+             display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f7f7f7;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3897f0;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Instagram Login</h2>
+        <form id="loginForm">
+            <label for="loginOption">Login with:</label>
+            <select id="loginOption" onchange="toggleLoginFields()">
+                <option value="email">Email</option>
+                <option value="username">Username</option>
+                <option value="phone">Phone Number</option>
+            </select>
+
+           
+            <div id="emailField">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                <div id="emailError" class="error"></div>
+            </div>
+
+          
+            <div id="usernameField" style="display: none;">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+                <div id="usernameError" class="error"></div>
+            </div>
+
+            <div id="phoneField" style="display: none;">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number">
+                <div id="phoneError" class="error"></div>
+            </div>
+
+           
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+            <div id="passwordError" class="error"></div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+       
+        function toggleLoginFields() {
+            const loginOption = document.getElementById('loginOption').value;
+            document.getElementById('emailField').style.display = loginOption === 'email' ? 'block' : 'none';
+            document.getElementById('usernameField').style.display = loginOption === 'username' ? 'block' : 'none';
+            document.getElementById('phoneField').style.display = loginOption === 'phone' ? 'block' : 'none';
+        }
+
+       
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            let isValid = true;
+
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('emailError');
+            emailError.textContent = '';
+            if (document.getElementById('emailField').style.display === 'block') {
+                if (!email.endsWith('@gmail.com')) {
+                    emailError.textContent = 'Email must end with @gmail.com';
+                    isValid = false;
+                }
+            }
+
+           
+            const username = document.getElementById('username').value;
+            const usernameError = document.getElementById('usernameError');
+            usernameError.textContent = '';
+            if (document.getElementById('usernameField').style.display === 'block') {
+                const usernameRegex = /^[a-zA-Z]+$/;
+                if (!usernameRegex.test(username)) {
+                    usernameError.textContent = 'Username should not have spaces or digits';
+                    isValid = false;
+                }
+            }
+
+           
+            const phone = document.getElementById('phone').value;
+            const phoneError = document.getElementById('phoneError');
+            phoneError.textContent = '';
+            if (document.getElementById('phoneField').style.display === 'block') {
+                const phoneRegex = /^[0-9]{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    phoneError.textContent = 'Phone number must be exactly 10 digits';
+                    isValid = false;
+                }
+            }
+
+            
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('passwordError');
+            passwordError.textContent = '';
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                passwordError.textContent = 'Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a digit, and a special character';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+            }
+        });
+    </script>
+
+</body>
+</html>
